@@ -2,7 +2,7 @@ package com.github.luisfeliperochamartins.lists;
 
 import com.github.luisfeliperochamartins.models.Node;
 import com.github.luisfeliperochamartins.models.Client;
-import com.github.luisfeliperochamartins.models.Order;
+import com.github.luisfeliperochamartins.models.Table;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -193,23 +193,35 @@ public class LinkedList<T extends Node> implements IList<T> {
 		return -1;
 	}
 
-	public void change(T node) {
-		T currentNode = head;
+	public void allocateClientToTable(Client client) {
+		Table currentNode = (Table) head;
 
 		while (currentNode != null) {
-			if (Objects.equals(currentNode.getId(), node.getId())) {
-				if (currentNode instanceof Client && node instanceof Client) {
-					Client client = (Client) currentNode;
-					client.setName(node.getName());
-				} else if (currentNode instanceof Order && node instanceof Order) {
-					Order order = (Order) currentNode;
-					order.setName(node.getName());
-					order.setPrice(((Order) node).getPrice());
-				}
+			if (currentNode.getClient() == null) {
+				currentNode.setClient(client);
+				return;
+			}
+			currentNode = (Table) currentNode.getNext();
+		}
+	}
+
+	public String checkOccupiedTables() {
+		Table currentNode = (Table) head;
+
+		int occupiedTables = 0;
+		int notOccupiedTables = 0;
+
+		while (currentNode != null) {
+			if (currentNode.getClient() != null) {
+				occupiedTables ++;
+			} else {
+				notOccupiedTables ++;
 			}
 
-			currentNode = (T) currentNode.getNext();
+			currentNode = (Table) currentNode.getNext();
 		}
+
+		return "Mesas Ocupadas: " + occupiedTables + ", Mesas não Ocupadas: " + notOccupiedTables;
 	}
 
 	@Override

@@ -1,31 +1,31 @@
 package com.github.luisfeliperochamartins.models;
 
 public class Employee extends Node {
-	private String cargo;
+	private EmployeeType cargo;
 	private String time;
 
-	public Employee(String cargo, String time) {
+	public Employee(EmployeeType cargo, String time) {
 		this.cargo = cargo;
 		this.time = time;
 	}
 
-	public Employee(Integer id, String name, String cargo, String time) {
+	public Employee(Integer id, String name, EmployeeType cargo, String time) {
 		super(id, name);
 		this.cargo = cargo;
 		this.time = time;
 	}
 
-	public Employee(Integer id, String name, Node next, Node prev, String cargo, String time) {
+	public Employee(Integer id, String name, Node next, Node prev, EmployeeType cargo, String time) {
 		super(id, name, next, prev);
 		this.cargo = cargo;
 		this.time = time;
 	}
 
-	public String getCargo() {
+	public EmployeeType getCargo() {
 		return cargo;
 	}
 
-	public void setCargo(String cargo) {
+	public void setCargo(EmployeeType cargo) {
 		this.cargo = cargo;
 	}
 
