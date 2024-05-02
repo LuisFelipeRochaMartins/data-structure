@@ -25,6 +25,14 @@ public class LinkedList<T extends Node> implements IList<T> {
 		this.data = data;
 	}
 
+	public T getHead() {
+		return head;
+	}
+
+	public void setHead(T head) {
+		this.head = head;
+	}
+
 	@Override
 	public boolean empty() {
 		return head == null;
@@ -193,16 +201,17 @@ public class LinkedList<T extends Node> implements IList<T> {
 		return -1;
 	}
 
-	public void allocateClientToTable(Client client) {
+	public boolean allocateClientToTable(Client client) {
 		Table currentNode = (Table) head;
 
 		while (currentNode != null) {
 			if (currentNode.getClient() == null) {
 				currentNode.setClient(client);
-				return;
+				return true;
 			}
 			currentNode = (Table) currentNode.getNext();
 		}
+		return false;
 	}
 
 	public String checkOccupiedTables() {
@@ -222,6 +231,20 @@ public class LinkedList<T extends Node> implements IList<T> {
 		}
 
 		return "Mesas Ocupadas: " + occupiedTables + ", Mesas não Ocupadas: " + notOccupiedTables;
+	}
+
+	public Integer peopleEating() {
+		Table currentNode = (Table) head;
+		int peopleEating = 0;
+
+		while(currentNode != null) {
+			if (currentNode.getClient() != null) {
+				peopleEating ++;
+			}
+
+			currentNode = (Table) currentNode.getNext();
+		}
+		return peopleEating;
 	}
 
 	@Override
